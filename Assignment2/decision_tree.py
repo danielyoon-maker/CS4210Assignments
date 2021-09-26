@@ -1,9 +1,9 @@
 #-------------------------------------------------------------------------
-# AUTHOR: Daniel Yoon
-# FILENAME: decision_tree.py
-# SPECIFICATION: finishes program as per assignment requirements
+# AUTHOR: your name
+# FILENAME: title of the source file
+# SPECIFICATION: description of the program
 # FOR: CS 4210- Assignment #2
-# TIME SPENT: 12 minutes
+# TIME SPENT: how long it took you to complete the assignment
 #-----------------------------------------------------------*/
 
 #IMPORTANT NOTE: DO NOT USE ANY ADVANCED PYTHON LIBRARY TO COMPLETE THIS CODE SUCH AS numpy OR pandas. You have to work here only with standard vectors and arrays
@@ -28,15 +28,13 @@ def transform(csvList, distance):
 
 from sklearn import tree
 import csv
-
+symbolDict = {}
 dataSets = ['contact_lens_training_1.csv', 'contact_lens_training_2.csv', 'contact_lens_training_3.csv']
 for ds in dataSets:
 
     dbTraining = []
     X = []
     Y = []
-    symbolDict = {}
-    symbolDict.clear()
     #reading the training data in a csv file
     with open(ds, 'r') as csvfile:
          reader = csv.reader(csvfile)
@@ -56,7 +54,7 @@ for ds in dataSets:
         if x[4] == "Yes":
             Y.append(1)
         else:
-            Y.append(0)
+            Y.append(2)
 
     #loop your training and test tasks 10 times here
     currentLowest = 2
@@ -76,15 +74,12 @@ for ds in dataSets:
                         dbTest.append (row)
 
         dbTest = transform(dbTest, 5)
-        for x in dbTest:
-            x[4] -= 1
         accurateGuess = 0
         for data in dbTest:
             #transform the features of the test instances to numbers following the same strategy done during training, and then use the decision tree to make the class prediction. For instance:
             #class_predicted = clf.predict([[3, 1, 2, 1]])[0]           -> [0] is used to get an integer as the predicted class label so that you can compare it with the true label
             #--> add your Python code here
             class_predicted = clf.predict([data[:4]])[0]
-            
             #compare the prediction with the true label (located at data[4]) of the test instance to start calculating the accuracy.
             #--> add your Python code here
             if class_predicted == data[4]:

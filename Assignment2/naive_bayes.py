@@ -65,6 +65,12 @@ print ("Day".ljust(15) + "Outlook".ljust(15) + "Temperature".ljust(15) + "Humidi
 #--> add your Python code here
 #-->predicted = clf.predict_proba([[3, 1, 2, 1]])[0]
 for row in dataset:
-    predicted = clf.predict_proba([[symbolDict.get(row[1]), symbolDict.get(row[2]), symbolDict.get(row[3]), symbolDict.get(row[4])]])[0]
+    predicted = list(clf.predict_proba([[symbolDict.get(row[1]), symbolDict.get(row[2]), symbolDict.get(row[3]), symbolDict.get(row[4])]])[0])
     maxValue = max(predicted)
-    print(list(predicted))
+    if(maxValue >= 0.75):
+        if(predicted.index(maxValue) == 0):
+            row[5] = 'Yes'
+        else:
+            row[5] = 'No'
+        row.append(maxValue)
+        print(str(row[0]).ljust(15) + str(row[1]).ljust(15) + str(row[2]).ljust(15) + str(row[3]).ljust(15) + str(row[4]).ljust(15) + str(row[5]).ljust(15) + str(row[6]).ljust(15))
